@@ -2,12 +2,12 @@
 #coding=utf-8
 
 from flask import request, url_for, render_template, flash, g, session, redirect
-from app import app
+from app import app, db
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
-from .forms import NameForm
+from .forms import NameForm, LoginForm
 from .models import Role, User
-from app import db
+from flask.ext.login import login_required
 
 bootstrap = Bootstrap(app)
 moment = Moment(app)
@@ -32,3 +32,12 @@ def index():
         return redirect(url_for('index'))
     return render_template('index.html', form=form, name=session.get('name'),
                            known=session.get('known', False))
+
+@app.route('/login')
+def login():
+    return render_template('login.html', form=LoginForm())
+
+@app.route('/secret')
+@login_required
+def secret():
+    return "Only authenticated users are allowed!"
