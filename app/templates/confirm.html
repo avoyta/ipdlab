@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}IPD Lab - Registration{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Уважаемый {{ user.username}},</h1>
+</div>
+<div class="col-md-4">
+    <p>
+        Для продолжения, пожалуйста, подтвердите свой аккаунт,  перейдя по ссылке:
+        {{ url_for('confirm', token=token, _external=True) }}
+        С уважением, команда IPD Lab
+    </p>
+</div>
+{% endblock %}
